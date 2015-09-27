@@ -1,0 +1,185 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fbtest}[2015/09/26 FBTest Package]
+
+\newif\ifkey
+
+\DeclareOption{key}{
+  \keytrue
+}
+
+\DeclareOption{notkey}{
+  \keyfalse
+}
+
+\DeclareOption*{
+  \PackageWarning{fbtest}{Unknown option: \CurrentOption}
+}
+
+\ExecuteOptions{notkey}
+
+\ProcessOptions\relax
+
+\RequirePackage{color}
+
+\newcounter{ProblemCounter}
+\setcounter{ProblemCounter}{0}
+\renewcommand{\theProblemCounter}{\arabic{ProblemCounter}}
+% counter incremented by the `problem` environment.
+
+\newcounter{SubproblemCounter}[ProblemCounter]
+\setcounter{SubproblemCounter}{0}
+\renewcommand{\theSubproblemCounter}{\alph{SubproblemCounter}}
+% counter incremented by the `subproblem` command.
+% reset whenever `ProblemCounter` changes.
+
+\newcounter{StatementCounter}[ProblemCounter]
+\setcounter{StatementCounter}{0}
+\renewcommand{\theStatementCounter}{\Roman{StatementCounter}}
+% counter incremented by the `statement` command.
+% reset whenever `ProblemCounter` changes.
+
+\newcounter{ChoiceCounter}[ProblemCounter]
+\setcounter{ChoiceCounter}{0}
+\renewcommand{\theChoiceCounter}{\Alph{ChoiceCounter}}
+% counter incremented by the `choice` command.
+% reset whenever `ProblemCounter` changes.
+
+\newcommand{\@inenvir}{}
+\newcommand{\@wantenvir}{}
+\newcommand{\@savedenvir}{}
+% internal global variables.
+% used to check that the document is stucturally sound.
+
+\newcommand{\@updateenvir}[1]{
+% internal function.
+% one argument, a string.
+% used to check that the document is stucturally sound.
+% updates \@inenvir to #1, saving the old envir.
+  \renewcommand{\@savedenvir}{\@inenvir}
+  \renewcommand{\@inenvir}{#1}
+}
+
+\newcommand{\@restoreenvir}{
+% internal function.
+% used to check that the document is stucturally sound.
+% restores the old \@inenvir.
+  \renewcommand{\@inenvir}{\@savedenvir}
+}
+
+\newcommand{\@envircheck}[1]{
+% internal function.
+% one argument, a string.
+% used to check that the document is stucturally sound.
+% compares the last \@inenvir with #1, halts if they don't match.
+  \renewcommand{\@wantenvir}{#1}
+  \ifx\@inenvir\@wantenvir\else
+    \PackageError{fbtest}{Missing environment: #1}
+  \fi
+}
+
+\newenvironment{problem}[1]{
+% one argument, number of points. leave blank for no points.
+  \@updateenvir{problem}
+  \refstepcounter{ProblemCounter}
+  \begin{enumerate}
+    \item[\theProblemCounter.]{}
+    \ifx&#1&\else
+      \ifnum\pdfstrcmp{#1}{1}=0
+        [#1 point]
+      \else
+        [#1 points]
+      \fi
+    \fi
+}{
+  \end{enumerate}
+  \@restoreenvir
+  \vfill
+}
+
+\newcommand{\subproblem}[2]{
+% two arguments, number of points and your content.
+  \@envircheck{problem}
+  \begin{enumerate}
+    \refstepcounter{SubproblemCounter}
+    \item[(\theSubproblemCounter)]{}
+    \ifx&#1&\else
+      \ifnum\pdfstrcmp{#1}{1}=0
+        [#1 point]
+      \else
+        [#1 points]
+      \fi
+    \fi
+    #2
+  \end{enumerate}
+}
+
+\newenvironment{choices}{
+% no arguments.
+% must occur within the `problem` environment.
+  \@envircheck{problem}
+  \@updateenvir{choices}
+  \begin{enumerate}
+}{
+  \end{enumerate}
+  \@restoreenvir
+}
+
+\newcommand{\choice}[1]{
+% one argument, your content.
+% must occur within the `choices` environment.
+  \@envircheck{choices}
+  \refstepcounter{ChoiceCounter}
+  \item[(\theChoiceCounter)]{#1}
+}
+
+\newenvironment{statements}{
+% no arguments.
+% must occur within the `problem` environment.
+  \@envircheck{problem}
+  \@updateenvir{statements}
+  \begin{enumerate}
+    \centering
+}{
+  \end{enumerate}
+  \@restoreenvir
+}
+
+\newcommand{\statement}[1]{
+% one argument, your content.
+% must occur within the `statements` environment.
+  \@envircheck{statements}
+  \refstepcounter{StatementCounter}
+  \item[\theStatementCounter.]{#1}
+}
+
+\newcommand{\solution}[1]{
+% one argument, your content.
+% ignored by default. prints if package is invoked with `key` option.
+  \ifkey
+    {\par
+      \color{blue}
+      #1
+    }
+  \fi
+}
+
+\newcommand{\inlinesolution}[1]{
+% one argument, your content.
+% ignored by default. prints if package is invoked with `key` option.
+% useful if you have, say, a table that you want to fill in.
+  \ifkey
+    {\color{blue} #1}
+  \fi
+}
+
+\newcommand{\llabel}[1]{
+% one argument, a label name.
+% creates a label whose name is scoped to the current problem.
+  \label{prob:\theProblemCounter:#1}
+}
+
+\newcommand{\lref}[1]{
+% one argument, a label name.
+% references a label whose name is scoped to the current problem.
+  \ref{prob:\theProblemCounter:#1}
+}

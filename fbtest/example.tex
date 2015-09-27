@@ -1,0 +1,93 @@
+\documentclass[10pt, letterpaper]{article}
+
+\usepackage[key]{fbtest}
+
+\begin{document}
+
+  \begin{problem}{2}
+    This should be a two-point problem.
+
+    \solution{
+      Here is it's solution.
+    }
+  \end{problem}
+
+  \begin{problem}{}
+    This should be a no-point problem. I guess it will have sub parts
+    that will be worth points.
+
+    \subproblem{1}{A subproblem}
+    \solution{And it's solution}
+
+    \subproblem{3}{Another subproblem}
+    \solution{And it's solution}
+
+    \subproblem{2}{A final subproblem}
+    \solution{And it's solution}
+  \end{problem}
+
+  \begin{problem}{1}
+    Here's a one-point problem. Circle One:
+
+    \begin{choices}
+      \choice{A choice}
+      \choice{Another choice}
+      \choice{Yet another choice}\inlinesolution{ANSWER}\llabel{c:ans}
+      \choice{A final choice}
+      \choice{None of the above}
+    \end{choices}
+
+    \solution{Pick \lref{c:ans}!}
+  \end{problem}
+
+  \newpage
+
+  \begin{problem}{3}
+    Here's a problem where we ask them to fill in a table.
+
+    \[
+      \begin{array}{l|c|c|c}
+        x & 1 & 2 & 3 \\
+        \hline
+        f(x)
+        & \inlinesolution{0.5}
+        & \inlinesolution{0.25}
+        & \inlinesolution{0.1}
+      \end{array}
+    \]
+
+    \solution{
+      The answers are printed in the table. Don't tell the teacher!
+    }
+  \end{problem}
+
+  \begin{problem}{1}
+    A GRE-style problem where we give them three statements and ask them
+    which ones are true. How mean!
+
+    Consider the following statements:
+
+    \begin{statements}
+      \statement{} $f$ is continuous at $a$.\llabel{s:1}
+      \statement{} $f$ is differentiable at $a$.\llabel{s:2}
+      \statement{} $f$ is integrable at $a$.\llabel{s:3}
+    \end{statements}
+
+    Which of the above statements are true?
+
+    \begin{choices}
+      \choice{} Statement \lref{s:1} only
+      \choice{} Statement \lref{s:2} only
+      \choice{} Statements \lref{s:1} and \lref{s:3}, but not \lref{s:2}
+      \choice{} Statements \lref{s:2} and \lref{s:3}, but not \lref{s:1}
+        \llabel{c:ans}
+      \choice{} None of the above
+    \end{choices}
+
+    \solution{
+      Clearly, it's statements \lref{s:2} and \lref{s:3}! That
+      would be anwer choice \lref{c:ans}.
+    }
+  \end{problem}
+
+\end{document}

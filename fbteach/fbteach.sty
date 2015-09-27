@@ -1,0 +1,242 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fbteach}[2015/09/24 FBTeach Package]
+
+\RequirePackage{lmodern}
+\RequirePackage{microtype}
+\RequirePackage{fixltx2e}
+
+\RequirePackage{amsmath, amssymb}
+\RequirePackage{graphicx}
+\RequirePackage{changepage}
+\RequirePackage{multicol}
+
+\RequirePackage[margin=0.75in]{geometry}
+\RequirePackage{parskip}
+\RequirePackage{nopageno}
+
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\labelitemi}{\scriptsize$\blacksquare$}
+\everymath{\displaystyle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BEGIN DOCUMENT GLOBALS %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\course}{}
+\newcommand{\setcourse}[1]{\renewcommand{\course}{#1}}
+\newcommand{\coursename}{}
+\newcommand{\setcoursename}[1]{\renewcommand{\coursename}{#1}}
+\newcommand{\term}{}
+\newcommand{\setterm}[1]{\renewcommand{\term}{#1}}
+
+\newcommand{\instructor}{}
+\newcommand{\setinstructor}[1]{\renewcommand{\instructor}{#1}}
+\newcommand{\instructorphone}{}
+\newcommand{\setinstructorphone}[1]{\renewcommand{\instructorphone}{#1}}
+\newcommand{\instructoremail}{}
+\newcommand{\setinstructoremail}[1]{\renewcommand{\instructoremail}{#1}}
+
+\renewcommand{\title}{}
+\newcommand{\settitle}[1]{\renewcommand{\title}{#1}}
+\newcommand{\assessmentvalue}{}
+\newcommand{\setassessmentvalue}[1]{\renewcommand{\assessmentvalue}{#1}}
+\newcommand{\assessmenttime}{}
+\newcommand{\setassessmenttime}[1]{\renewcommand{\assessmenttime}{#1}}
+
+\newcommand{\meetingdays}{}
+\newcommand{\setmeetingdays}[1]{\renewcommand{\meetingdays}{#1}}
+\newcommand{\meetingtime}{}
+\newcommand{\setmeetingtime}[1]{\renewcommand{\meetingtime}{#1}}
+\newcommand{\meetingroom}{}
+\newcommand{\setmeetingroom}[1]{\renewcommand{\meetingroom}{#1}}
+
+\newcommand{\meetingtwodays}{}
+\newcommand{\setmeetingtwodays}[1]{\renewcommand{\meetingtwodays}{#1}}
+\newcommand{\meetingtwotime}{}
+\newcommand{\setmeetingtwotime}[1]{\renewcommand{\meetingtwotime}{#1}}
+\newcommand{\meetingtworoom}{}
+\newcommand{\setmeetingtworoom}[1]{\renewcommand{\meetingtworoom}{#1}}
+
+\newcommand{\meetingthreedays}{}
+\newcommand{\setmeetingthreedays}[1]{\renewcommand{\meetingthreedays}{#1}}
+\newcommand{\meetingthreetime}{}
+\newcommand{\setmeetingthreetime}[1]{\renewcommand{\meetingthreetime}{#1}}
+\newcommand{\meetingthreeroom}{}
+\newcommand{\setmeetingthreeroom}[1]{\renewcommand{\meetingthreeroom}{#1}}
+
+\newcommand{\meetingfourdays}{}
+\newcommand{\setmeetingfourdays}[1]{\renewcommand{\meetingfourdays}{#1}}
+\newcommand{\meetingfourtime}{}
+\newcommand{\setmeetingfourtime}[1]{\renewcommand{\meetingfourtime}{#1}}
+\newcommand{\meetingfourroom}{}
+\newcommand{\setmeetingfourroom}[1]{\renewcommand{\meetingfourroom}{#1}}
+
+\newcommand{\meetingfivedays}{}
+\newcommand{\setmeetingfivedays}[1]{\renewcommand{\meetingfivedays}{#1}}
+\newcommand{\meetingfivetime}{}
+\newcommand{\setmeetingfivetime}[1]{\renewcommand{\meetingfivetime}{#1}}
+\newcommand{\meetingfiveroom}{}
+\newcommand{\setmeetingfiveroom}[1]{\renewcommand{\meetingfiveroom}{#1}}
+
+\newcommand{\finalday}{}
+\newcommand{\setfinalday}[1]{\renewcommand{\finalday}{#1}}
+\newcommand{\finaltime}{}
+\newcommand{\setfinaltime}[1]{\renewcommand{\finaltime}{#1}}
+\newcommand{\finalroom}{}
+\newcommand{\setfinalroom}[1]{\renewcommand{\finalroom}{#1}}
+
+\newcommand{\officehoursdays}{}
+\newcommand{\setofficehoursdays}[1]{\renewcommand{\officehoursdays}{#1}}
+\newcommand{\officehourstime}{}
+\newcommand{\setofficehourstime}[1]{\renewcommand{\officehourstime}{#1}}
+\newcommand{\officehoursroom}{}
+\newcommand{\setofficehoursroom}[1]{\renewcommand{\officehoursroom}{#1}}
+
+\newcommand{\officehourstwodays}{}
+\newcommand{\setofficehourstwodays}[1]{\renewcommand{\officehourstwodays}{#1}}
+\newcommand{\officehourstwotime}{}
+\newcommand{\setofficehourstwotime}[1]{\renewcommand{\officehourstwotime}{#1}}
+\newcommand{\officehourstworoom}{}
+\newcommand{\setofficehourstworoom}[1]{\renewcommand{\officehourstworoom}{#1}}
+
+\newcommand{\officehoursthreedays}{}
+\newcommand{\setofficehoursthreedays}[1]{\renewcommand{\officehoursthreedays}{#1}}
+\newcommand{\officehoursthreetime}{}
+\newcommand{\setofficehoursthreetime}[1]{\renewcommand{\officehoursthreetime}{#1}}
+\newcommand{\officehoursthreeroom}{}
+\newcommand{\setofficehoursthreeroom}[1]{\renewcommand{\officehoursthreeroom}{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% END DOCUMENT GLOBALS %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\@null}{}
+% used internally for variable comparisons
+
+\newcommand{\section}[1]{\par
+% one argument, your content.
+% un-numbered sections headings.
+  \vfill\hspace{-2em}\textbf{#1}
+}
+
+\newenvironment{definition}{\par
+% no arguments.
+% un-numbered block environment for definitions.
+  \begin{adjustwidth}{2em}{}
+    \fbox{\textbf{Def}} $\{$\it
+}{
+    \hfill$\}$
+  \end{adjustwidth}
+}
+
+\newenvironment{theorem}{\par
+% no arguments.
+% un-numbered block environment for theorems.
+  \begin{adjustwidth}{2em}{}
+    \fbox{\textbf{Thm}} $\{$\it
+}{
+    \hfill$\}$
+  \end{adjustwidth}
+}
+
+\newenvironment{example}{\par
+% no arguments.
+% un-numbered block environment for examples.
+  \begin{adjustwidth}{2em}{}
+    \fbox{\textbf{Ex}} $\{$\it
+}{
+    \hfill$\}$
+  \end{adjustwidth}
+}
+
+\newcommand{\makeassessmenthead}{
+% no "arguments" but reads document globals.
+% creates a document heading for assessments.
+  \course\hfill\term\\
+  \coursename\hfill\instructor
+
+  {\LARGE\title}\hfill{\assessmentvalue{. }\assessmenttime.}
+
+  \hrule
+}
+
+\newcommand{\makehandouthead}{
+% no "arguments" but reads document globals.
+% creates a document heading for handouts.
+  \course\hfill\term\\
+  \coursename\hfill\instructor
+
+  {\LARGE\title}
+
+  \hrule
+}
+
+\newcommand{\makesyllabushead}{
+% no "arguments" but reads document globals.
+% creates a heading for a course syllabus.
+{\LARGE\course}\hfill{\Large\term}
+
+{\large\coursename}\hfill\instructor
+
+\begin{tabular}{@{}p{0.25\linewidth}@{}p{0.25\linewidth}%
+                @{}p{0.25\linewidth}@{}p{0.25\linewidth}@{}}
+    \textbf{Meetings:}
+      & \meetingdays
+      & \meetingtime
+      & \meetingroom
+    \\
+    \ifx\meetingtwodays\@null\else
+      & \meetingtwodays
+      & \meetingtwotime
+      & \meetingtworoom
+    \\
+    \fi
+    \ifx\meetingthreedays\@null\else
+      & \meetingthreedays
+      & \meetingthreetime
+      & \meetingthreeroom
+    \\
+    \fi
+    \ifx\meetingfourdays\@null\else
+      & \meetingfourdays
+      & \meetingfourtime
+      & \meetingfourroom
+    \\
+    \fi
+    \ifx\meetingfivedays\@null\else
+      & \meetingfivedays
+      & \meetingfivetime
+      & \meetingfiveroom
+    \\
+    \fi
+    \textbf{Final Exam:}
+      & \finalday
+      & \finaltime
+      & \finalroom
+    \\
+    \textbf{Office Hours:}
+      & \officehoursdays
+      & \officehourstime
+      & \officehoursroom
+    \\
+    \ifx\officehourstwodays\@null\else
+      & \officehourstwodays
+      & \officehourstwotime
+      & \officehourstworoom
+    \\
+    \fi
+    \ifx\officehoursthreedays\@null\else
+      & \officehoursthreedays
+      & \officehoursthreetime
+      & \officehoursthreeroom
+    \\
+    \fi
+    \textbf{Email:}
+      & \texttt{\instructoremail}
+      & \textbf{Phone:}
+      & \instructorphone
+    \\
+\end{tabular}
+
+\hrule
+}

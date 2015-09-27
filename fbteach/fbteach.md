@@ -13,8 +13,6 @@ There are no options.
 As this is a style package (rather than a structure package), we pull in
 many packages.
 
-- `\RequirePackage[utf8]{inputenc}`
-- `\RequirePackage[T1]{fontenc}`
 - `\RequirePackage{lmodern}`
 - `\RequirePackage{microtype}`
 - `\RequirePackage{fixltx2e}`

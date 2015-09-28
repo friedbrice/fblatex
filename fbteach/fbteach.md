@@ -43,14 +43,14 @@ header and footer creation.
 Each variable is set with the exported `\set<variable>{<value>}`
 
 - `\newcommand{\course}{}
-- `\renewcommand{\coursename}{}
+- `\newcommand{\coursename}{}
 - `\newcommand{\term}{}
 
 - `\newcommand{\instructor}{}
 - `\newcommand{\instructorphone}{}
 - `\newcommand{\instructoremail}{}
 
-- `\newcommand{\title}{}
+- `\renewcommand{\title}{}
 - `\newcommand{\assessmentvalue}{}
 - `\newcommand{\assessmenttime}{}
 

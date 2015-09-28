@@ -21,6 +21,7 @@ many packages.
 - `\RequirePackage{graphicx}`
 - `\RequirePackage{changepage}`
 - `\RequirePackage{multicol}`
+- `\RequirePackage{adjustbox}`
 
 - `\RequirePackage[margin=0.75in]{geometry}`
 - `\RequirePackage{parskip}`

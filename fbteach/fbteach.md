@@ -96,7 +96,7 @@ Each variable is set with the exported `\set<variable>{<value>}`
 
 # Exported Macros
 
-- `\newcommand{\section}[1]`
+- `\newcommand{\fbsection}[1]`
   one argument, your content.
   un-numbered sections headings.
 
